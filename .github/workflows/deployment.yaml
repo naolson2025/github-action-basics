@@ -2,7 +2,8 @@ name: Test And Deploy
 # event to listen to
 # examples: push, pull_request, create, fork etc
 # manual triggers, rest api triggers, cron/schedule triggers
-on: push
+# on: push
+on: [push, workflow_dispatch] # can have multiple event triggers
 jobs:
   # testing is the first job, each job gets its own runner
   # independent of other jobs
