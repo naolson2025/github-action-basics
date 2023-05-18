@@ -1,0 +1,11 @@
+name: Output information
+on: workflow_dispatch
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output GitHub context
+        # github is a keyword that gives you a map of all the context that is available for your workflow run
+        # toJson() is a function that converts the context map to a JSON string
+        # for readability, toJson is built into the workflow language
+        run: echo "${{ toJson(github) }}"
