@@ -1,0 +1,30 @@
+name: Test Project
+# event to listen to
+# examples: push, pull_request, create, fork etc
+# manual triggers, rest api triggers, cron/schedule triggers
+on: push
+jobs:
+  test:
+    # nodejs is preinstalled on ubuntu-latest
+    # more info on what is preinstalled can be found here: https://docs.github.com/en/actions/reference/software-installed-on-github-hosted-runners
+    runs-on: ubuntu-latest
+    steps:
+      # need to get our repo code copied onto the CI server
+      - name: Get code
+        # uses is a special keyword to indicate we want to use an action
+        # actions can be found in the github marketplace
+        # checkout is a special action that copies our repo code to the CI server
+        uses: actions/checkout@v3
+        # install nodejs is not necessary because it is preinstalled on ubuntu-latest
+        # but the preinstalled version is 16, so if I want to use a different version I need to install it
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - name: Install dependencies
+        # run npm ci to install dependencies that have matching versions in package-lock.json
+        # safer than npm install
+        run: npm ci
+      - name: Run tests
+        # run unit tests
+        run: npm test
